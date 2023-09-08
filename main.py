@@ -2,9 +2,13 @@ import time
 import sys
 import os
 
-SERVERS_DIR = "/srv"
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SERVERS_DIR = str(os.getenv('MC_SERVERS_DIR'))
 if not os.path.isdir(SERVERS_DIR):
-    sys.exit("SERVERS_DIR doesn't exist or is not a directory")
+    sys.exit(f"SERVERS_DIR: ({SERVERS_DIR}) doesn't exist or is not a directory")
 
 def read_existing_time(file_path):
     if os.path.exists(file_path):
