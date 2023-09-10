@@ -5,6 +5,7 @@ import os
 
 from dotenv import load_dotenv
 
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
 
 SERVERS_DIR = str(os.getenv('MC_SERVERS_DIR'))
