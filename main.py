@@ -1,3 +1,4 @@
+import logging
 import time
 import sys
 import os
@@ -15,36 +16,36 @@ def read_existing_time(file_path):
         with open(file_path, 'r') as file:
             try:
                 time = int(file.read().strip())
-                print(f"Read timefile, time: {time}")
+                logging.debug(f"Read timefile, time: {time}")
                 return time
             except ValueError:
                 pass
     else:
-        print("No timefile to read")
+        logging.debug("No timefile to read")
     return None
 
 def clean_skipfile(timefile, skipfile):
     current_time = int(time.time())
-    print(f"Current time: {current_time}")
+    logging.debug(f"Current time: {current_time}")
+
     timefile_time = read_existing_time(timefile)
-    print(f"Timefile time: {timefile_time}")
+    logging.debug(f"Timefile time: {timefile_time}")
 
     if timefile_time is None or current_time > timefile_time:
         if os.path.exists(skipfile):
-            print(f'Removing skipfile {skipfile}')
+            logging.info(f"Current time ({current_time}) is greater than timefile_time ({timefile_time})")
+            logging.info(f'Removing skipfile {skipfile}')
             os.remove(skipfile)
     else:
-        print("No skipfiles to remove")
+        logging.debug("Not removing any skipfiles")
 
 
 if __name__ == '__main__':
     while True:
-        print("Cleaning skipfiles...")
+        logging.debug("Cleaning skipfiles...")
 
         items = os.listdir(SERVERS_DIR)
         directories = [item for item in items if os.path.isdir(os.path.join(SERVERS_DIR, item))]
-        if "docker-mc-orchestrator" in directories: directories.remove("docker-mc-orchestrator")
-        if "docker-mc-api" in directories: directories.remove("docker-mc-api")
 
         for server in directories:
             server_dir = f'{SERVERS_DIR}/{server}/data'
