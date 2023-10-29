@@ -26,7 +26,7 @@ Directories within `data/` are where the actual server data is (`server.properti
 
 In those server data directories are the skipfiles which this script cleans.
 
-We use `timefile`s which contain an epoch timestamp indicating when a skipfile has expired to determine whether to clean. These timefiles are created by external processes, currently only [mc-manager-api](). We keep one `timefile` per stack (in our example that would be rad2 and vanilla). `timefile`s are kept in a separate directory, currently `/data/${stack}/timefile`. `/data` is a mounted volume on the docker container, which is also mounted on [mc-manager-api]().
+We use `timefile`s which contain an epoch timestamp indicating when a skipfile has expired to determine whether to clean. These timefiles are created by external processes, currently only [mc-manager-api](https://github.com/garrettleber/mc-manager-api). We keep one `timefile` per stack (in our example that would be rad2 and vanilla). `timefile`s are kept in a separate directory, currently `/data/${stack}/timefile`. `/data` is a mounted volume on the docker container, which is also mounted on [mc-manager-api](https://github.com/garrettleber/mc-manager-api).
 
 ## TODO
 
